@@ -1,0 +1,137 @@
+#Juego LIT
+#Lib TBD   
+import pandas as pd
+import numpy as np
+#tu-csv 
+
+def password():
+    pwd = str(input("Crea tu contraseña por favor\n"))
+    contra = input("Bienvenido, ahora ingresa tu contraseña por favor\n")
+    while contra != pwd:
+        contra = input("Ingresa la contraseña correcta por favor\n")
+    print("Bienvenido a Mhike, el dia de hoy utilizaras nuestro simulador para ver que tan buenas son\
+        tus propuestas aplicadas en la vida real, a continuación tendras que definir distintos aspectos\
+        Los cuales son: calidad, precio y cantidad a producir.\
+        Dichos aspectos estan limitados por los siguientes parametros: \
+        1.- La calidad del producto tiene que ser un numero de 1-99, recuerda que el costo de producción \
+        va de la mano de la calidad, por lo cual por cada punto de calidad el costo aumentara por 5$. \
+        2.- El precio puede ser cualquier valor entre $500 y $999. \
+        3.- La cantidad de unidades a producir puede ser cualquiera entre 20k y 50k.\n")
+
+password()
+
+def repetir():
+
+    re = 9999 
+    while re > 0:
+        fin = int(input("Quieres seguir jugando? Sí(1) No(0)"))
+        if fin == 0:
+            break 
+        else:
+            re = +1  
+
+        def estados():
+            dafra = pd.DataFrame()
+            dafra["Estado"] = None
+            dafra["Calidad"] = None
+            dafra["Precio"] = None
+            dafra["Cantidad"] = None
+
+            fil = 0
+
+            est = int(input("Elige un estado, Nuevo León(1), CDMX(2), Guadalajara(3), Veracruz(4), Sonora(5), Morelos(6), Queretaro(7), Tlaxcala(8)."))
+            if est == 1:
+                rqua = 86
+                rpri = rqua * 9
+                rqnt = rqua * 420
+
+            elif est == 2:
+                rqua = 70
+                rpri = rqua * 8
+                rqnt = rqua * 500
+                    
+            elif est == 3:
+                rqua = 89
+                rpri = rqua * 10
+                rqnt = rqua * 480
+                    
+            elif est == 4:
+                rqua = 72
+                rpri = rqua * 9
+                rqnt = rqua * 410
+                    
+            elif est == 5:
+                rqua = 92
+                rpri = rqua * 9
+                rqnt = rqua * 460
+                    
+            elif est == 6:
+                rqua = 81
+                rpri = rqua * 8
+                rqnt = rqua * 400
+            
+            elif est == 7:
+                rqua = 65
+                rpri = rqua * 8
+                rqnt = rqua * 440
+                    
+            elif est == 8:
+                rqua = 86
+                rpri = rqua * 9
+                rqnt = rqua * 420
+                    
+                print("Tlaxcala no existe, mejor intenta con Nuevo León")
+
+            qua = int(input("Calidad elegida por unidad(recuerda que calidad 1:5 costo)\n"))
+            pri = int(input("Precio elegido por unidad(recuerda que va de 500-999)\n"))
+            qnt = int(input("Cantidad de unidades(recuerda que va de 20k-50k)\n"))
+
+            def juego():
+
+                suma = qua + pri + qnt
+
+                if qua == rqua:
+                    print("1.-La calidad que elegiste es perfecta, ahora solo faltan los demás datos\n")
+                elif qua < rqua:
+                    print(("1.-La calidad de tus productos es muy baja, deberías intentar mejorarla la proxima vez\n"))
+                elif qua > rqua:
+                    print(("1.-Wow, con una calidad tan alta veo dificil que tu proyecto sea rentable\n"))
+                    
+                if pri == rpri:
+                    print("2.-El precio que elegiste es perfecta, ahora solo faltan los demás datos\n")
+                elif pri < rpri:
+                    print(("2.-El precio de tus productos es muy bajo, estamos tratando de ganar dinero aquí\n"))
+                elif pri > rpri:
+                    print(("2.-Wow, con una precio tan alta veo dificil que podemos vender 1 zapato\n"))
+
+                if qnt == rqnt:
+                    print("3.-La cantidad que elegiste es perfecta, ahora solo faltan los demás datos\n")
+                elif qnt < rqnt:
+                    print(("3.-La cantidad de tus productos es muy baja, recuerda que queremos vender lo más posible\n"))
+                elif qnt > rqnt:
+                    print(("3.-Wow, con una cantidad tan alta mis nietos tendran la oportunidad de alcanzar a comprar estos zapatos\n"))
+
+                sumausuario = rqua + rpri + rqnt 
+                    
+                if  suma == sumausuario:
+                    print("Lo lograste, eres el mejor!\n")
+                elif suma < sumausuario:
+                    print("No te rindas, recuerda que puedes intentarlo las veces que quieras\n")
+                elif suma > sumausuario:
+                    print("No te rindas, recuerda que puedes intentarlo las veces que quieras\n")
+                    
+                
+                dafra.loc[fil] =  [est, rqua, rpri, rqnt]
+                fil += 1
+            
+                condiciones = [
+                (dafra["suma"] == dafra["sumausuario"]),
+                (dafra["suma"] != dafra["sumausuario"]),]
+
+                valores = ["Victoria", "Derrota"]
+
+                dafra["resultado"] = np.select(condiciones, valores)
+                print(dafra)
+            juego()
+        estados()
+repetir()
